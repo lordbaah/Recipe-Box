@@ -6,6 +6,7 @@ import Pagination from "../components/Pagination";
 import { fetchRecipesPaginated } from "../services/api";
 import Filter from "../components/Filter";
 import ErrorMessage from "../components/ErrorMessage";
+import CardSkeleton from "../components/Loaders/CardSkeleton";
 
 const Recipes = () => {
   const navigate = useNavigate();
@@ -94,8 +95,9 @@ const Recipes = () => {
 
         {/* Loading State */}
         {isLoading && (
-          <div className="text-center py-12">
-            <div className="text-lg text-gray-600">Loading recipes...</div>
+          <div className="mt-8 grid grid-cols-1 gap-8  md:grid-cols-2">
+            <CardSkeleton />
+            <CardSkeleton />
           </div>
         )}
 

@@ -14,6 +14,7 @@ import {
   getDoc,
   deleteDoc,
 } from "firebase/firestore";
+import DashBoardSkeleton from "../components/Loaders/DashBoardSkeleton";
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -108,11 +109,7 @@ const Dashboard = () => {
   return (
     <section>
       <div className="custom-screen">
-        {loading && (
-          <div className="text-center py-12">
-            <p className="text-lg text-gray-600">Loading...</p>
-          </div>
-        )}
+        {loading && <DashBoardSkeleton />}
 
         {error && (
           <div className="text-center py-12">
@@ -120,27 +117,27 @@ const Dashboard = () => {
           </div>
         )}
 
-        <div className="max-w-6xl mx-auto">
-          {/* User Info Section */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
-            {userData && (
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-2xl font-semibold mb-2">
-                  Welcome, {userData.firstName} {userData.lastName}!
-                </h2>
-                <p className="text-gray-600 mb-4">{userData.email}</p>
-                <button
-                  onClick={handleLogout}
-                  className="bg-clr-pink text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-colors">
-                  Log Out
-                </button>
-              </div>
-            )}
-          </div>
+        {/* User Info Section */}
+        <div className="mb-8">
+          {!loading && userData && (
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-2xl font-semibold mb-2">
+                Welcome to your Dashboard, {userData.firstName}{" "}
+                {userData.lastName}!
+              </h2>
+              <p className="text-gray-600 mb-4">{userData.email}</p>
+              <button
+                onClick={handleLogout}
+                className="bg-clr-pink text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-colors">
+                Log Out
+              </button>
+            </div>
+          )}
+        </div>
 
-          {/* Favorites Section */}
-          <div>
+        {/* Favorites Section */}
+        {!loading && !error && favorites && (
+          <>
             <h2 className="text-2xl font-bold mb-4">Your Favorite Recipes</h2>
             {favorites.length === 0 ? (
               <div className="bg-white p-6 rounded-lg shadow-md text-center">
@@ -169,8 +166,8 @@ const Dashboard = () => {
                 ))}
               </div>
             )}
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </section>
   );

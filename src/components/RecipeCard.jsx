@@ -1,8 +1,9 @@
-import { useContext } from "react";
 import { IoIosTimer, IoIosHeart } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useFavorites } from "../customhook/UseFavourite";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const RecipeCard = ({
   id,
@@ -46,13 +47,15 @@ const RecipeCard = ({
       </button>
 
       <div className="relative h-[216px] w-full rounded-t">
-        <img
+        <LazyLoadImage
           alt={title}
           src={image}
-          loading="lazy"
+          effect="blur"
+          width="100%"
+          height="100%"
           className="h-full w-full block rounded-t object-cover"
         />
-        <div className="absolute inset-0 bg-black opacity-30 rounded"></div>
+        <div className="absolute h-full w-full inset-0 bg-black opacity-30 rounded"></div>
       </div>
 
       <div className="p-4">

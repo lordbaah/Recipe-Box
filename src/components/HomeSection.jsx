@@ -1,6 +1,8 @@
 import RecipeCard from "./RecipeCard";
 import section_img from "../assets/img/5dcdb6c72e8ae.png";
 import { useNavigate } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const HomeSection = () => {
   const navigate = useNavigate();
@@ -8,8 +10,9 @@ const HomeSection = () => {
     <section className="my-12">
       <div className="custom-screen grid gap-8 grid-cols-1 md:grid-cols-2">
         <div>
-          <img
+          <LazyLoadImage
             src={section_img}
+            effect="blur"
             alt="A woman Chef"
             className="w-full block object-cover"
           />
