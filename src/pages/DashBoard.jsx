@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase/config";
 import RecipeCard from "../components/RecipeCard";
+import { toast } from "react-toastify";
 import {
   collection,
   query,
@@ -11,6 +12,7 @@ import {
   getDocs,
   doc,
   getDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
 const Dashboard = () => {
@@ -50,7 +52,10 @@ const Dashboard = () => {
       try {
         const favoritesRef = collection(db, "favorites", user.uid, "recipes");
         const querySnapshot = await getDocs(favoritesRef);
-        const fetchedFavorites = querySnapshot.docs.map((doc) => doc.data());
+        const fetchedFavorites = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          docId: doc.id, // Store the document ID for deletion
+        }));
         setFavorites(fetchedFavorites);
       } catch (err) {
         setError(err);
@@ -68,6 +73,35 @@ const Dashboard = () => {
       navigate("/");
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const handleRemoveFavorite = async (recipeId) => {
+    if (!user) return;
+
+    try {
+      // Convert recipeId to number to match the stored format
+      const numericId = parseInt(recipeId);
+
+      // Find the document that matches the recipe ID
+      const favoritesRef = collection(db, "favorites", user.uid, "recipes");
+      const q = query(favoritesRef, where("id", "==", numericId));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        // Get the first matching document and delete it
+        const docToDelete = querySnapshot.docs[0];
+        await deleteDoc(docToDelete.ref);
+
+        // Update local state using numeric comparison
+        setFavorites((prevFavorites) =>
+          prevFavorites.filter((recipe) => recipe.id !== numericId)
+        );
+        toast.success("Recipe removed from favorites");
+      }
+    } catch (err) {
+      console.error("Error removing favorite:", err);
+      setError("Failed to remove favorite recipe");
     }
   };
 
@@ -129,6 +163,8 @@ const Dashboard = () => {
                     image={recipe.image}
                     readyInMinutes={recipe.readyInMinutes}
                     servings={recipe.servings}
+                    isDashboard={true}
+                    onRemoveFavorite={handleRemoveFavorite}
                   />
                 ))}
               </div>

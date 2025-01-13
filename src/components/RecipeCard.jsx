@@ -4,7 +4,15 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useFavorites } from "../customhook/UseFavourite";
 
-const RecipeCard = ({ id, image, title, servings, readyInMinutes }) => {
+const RecipeCard = ({
+  id,
+  image,
+  title,
+  servings,
+  readyInMinutes,
+  onRemoveFavorite,
+  isDashboard = false,
+}) => {
   const { user } = useAuth();
   const recipeData = { id, image, title, servings, readyInMinutes }; //data needed for favorite
 
@@ -14,15 +22,25 @@ const RecipeCard = ({ id, image, title, servings, readyInMinutes }) => {
     recipeData
   );
 
+  const handleFavoriteClick = async () => {
+    if (isDashboard) {
+      // If we're on the dashboard, use the dashboard's remove function
+      await onRemoveFavorite(id);
+    } else {
+      // Otherwise use the normal toggle functionality
+      await toggleFavorite();
+    }
+  };
+
   return (
     <div className="relative rounded shadow-md pb-4 flex flex-col justify-between">
       <button
         className="absolute right-2 top-2 shadow-sm z-10"
-        onClick={toggleFavorite}
+        onClick={handleFavoriteClick}
         disabled={isLoading}>
         <IoIosHeart
           className={`text-3xl ${
-            isFavorite ? "text-clr-pink" : "text-clr-white"
+            isDashboard || isFavorite ? "text-clr-pink" : "text-clr-white"
           }`}
         />
       </button>
@@ -52,7 +70,7 @@ const RecipeCard = ({ id, image, title, servings, readyInMinutes }) => {
 
           <Link
             to={`/recipes/${id}`}
-            className="border-clr-black border py-2 px-4 rounded-full uppercase text-xs">
+            className="border-clr-black border py-1 px-2 rounded-full capatalize text-xs">
             View Recipe
           </Link>
         </div>
