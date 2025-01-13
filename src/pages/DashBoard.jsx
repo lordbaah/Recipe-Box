@@ -119,7 +119,7 @@ const Dashboard = () => {
 
         {/* User Info Section */}
         <div className="mb-8">
-          {!loading && userData && (
+          {userData && (
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-2xl font-semibold mb-2">
                 Welcome to your Dashboard, {userData.firstName}{" "}
