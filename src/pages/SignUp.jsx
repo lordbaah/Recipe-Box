@@ -49,11 +49,10 @@ const SignUp = () => {
         console.log("User registered successfully");
 
         // Short delay to allow the success toast to be visible
-        useEffect(() => {
-          setTimeout(() => {
-            navigate(from, { replace: true });
-          }, 1500);
-        }, []);
+
+        setTimeout(() => {
+          navigate(from, { replace: true });
+        }, 1500);
 
         // Reset form states
         setFirstName("");

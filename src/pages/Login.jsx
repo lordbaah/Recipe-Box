@@ -29,11 +29,10 @@ const Login = () => {
       toast.success("Login successful!");
 
       // Short delay to show the success toast
-      useEffect(() => {
-        setTimeout(() => {
-          navigate(from, { replace: true });
-        }, 1500);
-      }, []);
+
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 1500);
 
       setEmail("");
       setPassword("");

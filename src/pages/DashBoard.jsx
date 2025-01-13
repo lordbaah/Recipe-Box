@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase/config";
+import RecipeCard from "../components/RecipeCard";
 import {
   collection,
   query,
@@ -73,33 +74,67 @@ const Dashboard = () => {
   return (
     <section>
       <div className="custom-screen">
-        <h1>Welcome to DashBoard </h1>
-        {userData ? (
-          <h2>
-            Hello, {userData.firstName} {userData.lastName}!
-          </h2>
-        ) : (
-          <p>Loading user data...</p>
+        {loading && (
+          <div className="text-center py-12">
+            <p className="text-lg text-gray-600">Loading...</p>
+          </div>
         )}
 
-        <h2>Your Favorites:</h2>
-        {loading && <div>Loading Favorites...</div>}
-        {error && <div>Error loading favorites: {error.message}</div>}
-        {favorites.length === 0 ? (
-          <p>You have no favorites yet.</p>
-        ) : (
-          <ul>
-            {favorites.map((favorite) => (
-              <li key={favorite.id}>
-                <Link to={`/recipes/${favorite.id}`}>
-                  {favorite.title} - Price: ${favorite.price}
+        {error && (
+          <div className="text-center py-12">
+            <p className="text-lg text-red-600">{error}</p>
+          </div>
+        )}
+
+        <div className="max-w-6xl mx-auto">
+          {/* User Info Section */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
+            {userData && (
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h2 className="text-2xl font-semibold mb-2">
+                  Welcome, {userData.firstName} {userData.lastName}!
+                </h2>
+                <p className="text-gray-600 mb-4">{userData.email}</p>
+                <button
+                  onClick={handleLogout}
+                  className="bg-clr-pink text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-colors">
+                  Log Out
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Favorites Section */}
+          <div>
+            <h2 className="text-2xl font-bold mb-4">Your Favorite Recipes</h2>
+            {favorites.length === 0 ? (
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <p className="text-gray-600">
+                  You haven't saved any recipes yet.
+                </p>
+                <Link
+                  to="/recipes"
+                  className="text-clr-pink hover:underline mt-2 inline-block">
+                  Browse Recipes
                 </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <button onClick={handleLogout}>Log Out</button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                {favorites.map((recipe) => (
+                  <RecipeCard
+                    key={recipe.id}
+                    id={recipe.id}
+                    title={recipe.title}
+                    image={recipe.image}
+                    readyInMinutes={recipe.readyInMinutes}
+                    servings={recipe.servings}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );
