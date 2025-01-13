@@ -6,6 +6,9 @@ import { useAuth } from "../context/AuthContext";
 import { useFavorites } from "../customhook/UseFavourite";
 import { IoIosTimer, IoIosHeart } from "react-icons/io";
 import ErrorMessage from "../components/ErrorMessage";
+import CardSkeleton from "../components/Loaders/CardSkeleton";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const Recipe = () => {
   const { user } = useAuth();
@@ -32,11 +35,7 @@ const Recipe = () => {
     <section>
       <div className="custom-screen">
         {/* Loading State */}
-        {isRecipeLoading && (
-          <div className="text-center py-12">
-            <div className="text-lg text-gray-600">Loading recipes...</div>
-          </div>
-        )}
+        {isRecipeLoading && <CardSkeleton />}
 
         {/* Error States */}
         {favoriteError && (
@@ -52,15 +51,6 @@ const Recipe = () => {
         {recipeData && !isRecipeLoading && (
           <>
             <div className="flex flex-col gap-6 items-start">
-              <div className="">
-                <p className="font-bold uppercase text-2xl">ready in</p>
-                <div className="flex items-end">
-                  <IoIosTimer className="text-4xl" />
-                  <h3 className="font-bold">{`${recipeData.readyInMinutes} minutes`}</h3>
-                </div>
-              </div>
-              {/* <p>{`Number of Servings: ${recipeData.servings}`}</p> */}
-
               <h1 className="text-2xl font-extrabold lg:text-5xl mb-4">
                 {recipeData.title}
               </h1>
@@ -69,13 +59,15 @@ const Recipe = () => {
                 onClick={toggleFavorite}
                 disabled={isFavoriteLoading}
                 className={`px-4 py-2 rounded-lg text-white ${
-                  isFavorite ? "bg-clr-pink" : "bg-blue-400"
+                  isFavorite ? "bg-clr-pink" : "bg-gray-400 text-black"
                 }`}>
                 {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
               </button>
 
               <div className="max-w-[700px] mx-auto">
-                <img
+                <LazyLoadImage
+                  effect="blur"
+                  width="100%"
                   src={recipeData.image}
                   alt={recipeData.title}
                   className="w-full h-auto block object-cover"

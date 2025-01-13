@@ -10,7 +10,7 @@ const Filter = ({
   setMealType,
 }) => {
   return (
-    <div className="w-full max-w-7xl mx-auto px-4">
+    <div className="w-full">
       <div className="bg-clr-white rounded-lg shadow-md p-6">
         <h2 className="text-lg font-semibold text-clr-black mb-4">
           Filter Recipes

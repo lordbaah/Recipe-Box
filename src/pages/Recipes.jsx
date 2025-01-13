@@ -83,15 +83,16 @@ const Recipes = () => {
     <section>
       <div className="custom-screen">
         <h1 className="text-2xl font-bold text-center my-4">Recipe List</h1>
-
-        <Filter
-          dietType={dietType}
-          setDietType={(value) => handleFilterChange("diet", value)}
-          cuisineType={cuisineType}
-          setCuisineType={(value) => handleFilterChange("cuisine", value)}
-          mealType={mealType}
-          setMealType={(value) => handleFilterChange("meal", value)}
-        />
+        {data && !isLoading && (
+          <Filter
+            dietType={dietType}
+            setDietType={(value) => handleFilterChange("diet", value)}
+            cuisineType={cuisineType}
+            setCuisineType={(value) => handleFilterChange("cuisine", value)}
+            mealType={mealType}
+            setMealType={(value) => handleFilterChange("meal", value)}
+          />
+        )}
 
         {/* Loading State */}
         {isLoading && (
@@ -106,7 +107,7 @@ const Recipes = () => {
 
         {/* Recipes Grid */}
         {data && !isLoading && (
-          <div className="mt-8 px-8 grid grid-cols-1 gap-8  md:grid-cols-2">
+          <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
             {data.results.map((recipe) => (
               <RecipeCard
                 key={recipe.id}

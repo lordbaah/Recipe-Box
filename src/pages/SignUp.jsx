@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import { db, auth } from "../firebase/config";
 import { doc, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
@@ -13,11 +13,15 @@ const SignUp = () => {
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { signup } = useAuth();
+  const { signup, user } = useAuth();
   const navigate = useNavigate();
 
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />; // Redirect if logged in
+  }
 
   const handleSignUp = async (e) => {
     e.preventDefault();

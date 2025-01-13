@@ -23,16 +23,11 @@ const Hero = () => {
           </h1>
 
           <p className="text-clr-white text-center max-w-[60ch]  mt-4">
-            This Project is create with <b>Spoonacular Recipe Api</b> to retrive
-            recipes. This Project is a capstrone project at a BootCamp I did at
-            Trestle Academy.
+            This project was made with the Spoonacular Recipe API to fetch
+            recipes and serves as my capstone project from a BootCamp I
+            completed at Trestle Academy. I am using the free version of the
+            API, which has a daily usage limit.
           </p>
-
-          {/* <button
-            onClick={() => navigate(`/recipes`)}
-            className="inline-block uppercase font-bold text-sm mt-5 py-2 px-4 text-clr-white bg-clr-pink duration-150 hover:bg-clr-yellow active:bg-gray-200 rounded-full">
-            explore recipes
-          </button> */}
 
           <SearchComponent />
         </div>

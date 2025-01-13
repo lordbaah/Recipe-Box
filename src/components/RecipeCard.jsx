@@ -64,11 +64,11 @@ const RecipeCard = ({
         <div className="mt-6 flex  items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <IoIosTimer className="text-xs uppercase" />
-              <p className="text-xs uppercase">{`${readyInMinutes} mins`}</p>
+              <IoIosTimer className="text-xs" />
+              <p className="text-xs capitalize">{`${readyInMinutes} mins`}</p>
             </div>
 
-            <p className="text-xs uppercase">{`${servings} serves`}</p>
+            <p className="text-xs capitalize">{`${servings} serves`}</p>
           </div>
 
           <Link

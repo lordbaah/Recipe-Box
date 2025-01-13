@@ -3,11 +3,17 @@ import { auth } from "../firebase/config";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const { user } = useAuth();
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />; // Redirect if logged in
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

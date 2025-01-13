@@ -2,9 +2,7 @@ import { CiImageOn } from "react-icons/ci";
 
 const CardSkeleton = () => {
   return (
-    <div
-      role="status"
-      className="max-w-sm border border-gray-300 rounded-lg p-4">
+    <div role="status" className=" border border-gray-300 rounded-lg p-4">
       <div className="animate-pulse w-full bg-gray-300 h-48 rounded-lg mb-5 flex justify-center items-center">
         <CiImageOn className="w-8 h-8 stroke-gray-400" />
       </div>

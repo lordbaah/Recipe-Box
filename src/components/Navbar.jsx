@@ -1,14 +1,19 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { FaBars, FaCross } from "react-icons/fa6";
-
+import { FaBars, FaX } from "react-icons/fa6";
+import { useAuth } from "../context/AuthContext";
 import MobileNav from "./MobileNav";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
 
   const handleToggle = () => {
     setOpen((prev) => !prev);
+  };
+
+  const closeMenu = () => {
+    setOpen(false);
   };
 
   return (
@@ -22,7 +27,7 @@ const Navbar = () => {
 
         <ul className="hidden md:flex gap-4 items-center">
           {navItems.map((item, index) => (
-            <li key={index} className="text-clr-black uppercase relative">
+            <li key={index} className="text-clr-black capitalize relative">
               <NavLink
                 to={item.path}
                 className={({ isActive }) => (isActive ? "text-clr-pink" : "")}>
@@ -30,19 +35,30 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
+          {!user ? (
+            <li>
+              <NavLink
+                to={"/login"}
+                className="font-bold text-sm py-2 px-4 text-clr-white bg-clr-pink duration-150 hover:bg-clr-yellow active:bg-gray-200 rounded-full">
+                Login
+              </NavLink>
+            </li>
+          ) : (
+            ""
+          )}
         </ul>
 
         <button
           onClick={handleToggle}
-          className="inline-flex items-center justify-center  z-40 md:hidden">
+          className="inline-flex items-center justify-center z-40 md:hidden">
           {open ? (
-            <FaCross className="text-clr-white text-2xl" />
+            <FaX className="text-clr-white text-2xl" />
           ) : (
             <FaBars className="text-2xl" />
           )}
         </button>
       </nav>
-      {open && <MobileNav />}
+      {open && <MobileNav closeMenu={closeMenu} />}
     </header>
   );
 };
@@ -54,10 +70,7 @@ const navItems = [
     name: "Recipes",
     path: "/recipes",
   },
-  {
-    name: "Login",
-    path: "/login",
-  },
+
   {
     name: "Dashboard",
     path: "/dashboard",
