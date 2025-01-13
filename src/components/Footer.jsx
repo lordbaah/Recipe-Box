@@ -5,7 +5,7 @@ const currentYear = new Date().getFullYear();
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="mt-12">
       <div className="custom-screen">
         <p>copyright{currentYear}</p>
       </div>
