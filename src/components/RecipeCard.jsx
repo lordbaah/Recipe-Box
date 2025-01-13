@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { useFavorites } from "../customhook/UseFavourite";
 
 const RecipeCard = ({ id, image, title, servings, readyInMinutes }) => {
-  const { user } = useAuth;
+  const { user } = useAuth();
   const recipeData = { id, image, title, servings, readyInMinutes }; //data needed for favorite
 
   const { isFavorite, isLoading, toggleFavorite } = useFavorites(
