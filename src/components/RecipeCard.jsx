@@ -1,13 +1,22 @@
+import { useContext } from "react";
 import { IoIosTimer, IoIosHeart } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useFavorites } from "../customhook/UseFavourite";
 
 const RecipeCard = ({ id, image, title, servings, readyInMinutes }) => {
-  // const { user } = useContext(AuthContext);
-  // const recipeData = { id, image, title, servings, readyInMinutes }; //data needed for favorite
+  const { user } = useAuth;
+  const recipeData = { id, image, title, servings, readyInMinutes }; //data needed for favorite
+
+  const { isFavorite, isLoading, toggleFavorite } = useFavorites(
+    user,
+    id,
+    recipeData
+  );
 
   return (
     <div className="relative rounded shadow-md pb-4 flex flex-col justify-between">
-      {/* <button
+      <button
         className="absolute right-2 top-2 shadow-sm z-10"
         onClick={toggleFavorite}
         disabled={isLoading}>
@@ -16,7 +25,7 @@ const RecipeCard = ({ id, image, title, servings, readyInMinutes }) => {
             isFavorite ? "text-clr-pink" : "text-clr-white"
           }`}
         />
-      </button> */}
+      </button>
 
       <div className="relative h-[216px] w-full rounded-t">
         <img

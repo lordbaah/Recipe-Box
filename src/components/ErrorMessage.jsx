@@ -1,4 +1,3 @@
-import React from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { BiError } from "react-icons/bi";
 
@@ -84,28 +83,30 @@ const ErrorMessage = ({ error }) => {
   const isWarning = errorDetails.type === "warning";
 
   return (
-    <div
-      className={`max-w-2xl mx-auto mt-8 p-4 ${
-        isWarning
-          ? "bg-yellow-50 border-yellow-200"
-          : "bg-red-50 border-red-200"
-      } border rounded-lg`}>
-      <div className="flex items-center justify-center gap-3">
-        {isWarning ? (
-          <RiErrorWarningLine className="w-6 h-6 text-yellow-400" />
-        ) : (
-          <BiError className="w-6 h-6 text-red-400" />
-        )}
-        <div>
-          <h3
-            className={`text-lg font-semibold ${
-              isWarning ? "text-yellow-800" : "text-red-800"
-            }`}>
-            {errorDetails.title}
-          </h3>
-          <p className={isWarning ? "text-yellow-700" : "text-red-700"}>
-            {errorDetails.message}
-          </p>
+    <div className="h-[90vh]">
+      <div
+        className={`max-w-2xl mx-auto mt-8 px-8 py-4 ${
+          isWarning
+            ? "bg-yellow-50 border-yellow-200"
+            : "bg-red-50 border-red-200"
+        } border rounded-lg`}>
+        <div className="flex items-center justify-center gap-3">
+          {isWarning ? (
+            <RiErrorWarningLine className="w-6 h-6 text-yellow-400" />
+          ) : (
+            <BiError className="w-6 h-6 text-red-400" />
+          )}
+          <div>
+            <h3
+              className={`text-lg font-semibold ${
+                isWarning ? "text-yellow-800" : "text-red-800"
+              }`}>
+              {errorDetails.title}
+            </h3>
+            <p className={isWarning ? "text-yellow-700" : "text-red-700"}>
+              {errorDetails.message}
+            </p>
+          </div>
         </div>
       </div>
     </div>

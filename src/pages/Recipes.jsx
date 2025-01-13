@@ -79,71 +79,73 @@ const Recipes = () => {
   }, [totalPages, currentPage, navigate]);
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-center my-4">Recipe List</h1>
+    <section>
+      <div className="custom-screen">
+        <h1 className="text-2xl font-bold text-center my-4">Recipe List</h1>
 
-      <Filter
-        dietType={dietType}
-        setDietType={(value) => handleFilterChange("diet", value)}
-        cuisineType={cuisineType}
-        setCuisineType={(value) => handleFilterChange("cuisine", value)}
-        mealType={mealType}
-        setMealType={(value) => handleFilterChange("meal", value)}
-      />
+        <Filter
+          dietType={dietType}
+          setDietType={(value) => handleFilterChange("diet", value)}
+          cuisineType={cuisineType}
+          setCuisineType={(value) => handleFilterChange("cuisine", value)}
+          mealType={mealType}
+          setMealType={(value) => handleFilterChange("meal", value)}
+        />
 
-      {/* Loading State */}
-      {isLoading && (
-        <div className="text-center py-12">
-          <div className="text-lg text-gray-600">Loading recipes...</div>
-        </div>
-      )}
+        {/* Loading State */}
+        {isLoading && (
+          <div className="text-center py-12">
+            <div className="text-lg text-gray-600">Loading recipes...</div>
+          </div>
+        )}
 
-      {/* Error State */}
-      {isError && <ErrorMessage error={error} />}
+        {/* Error State */}
+        {isError && <ErrorMessage error={error} />}
 
-      {/* Recipes Grid */}
-      {data && !isLoading && (
-        <div className="max-w-7xl mx-auto mt-8 px-8 grid grid-cols-1 gap-8  md:grid-cols-2">
-          {data.results.map((recipe) => (
-            <RecipeCard
-              key={recipe.id}
-              title={recipe.title}
-              id={recipe.id}
-              readyInMinutes={recipe.readyInMinutes}
-              servings={recipe.servings}
-              image={recipe.image}
-            />
-          ))}
-        </div>
-      )}
+        {/* Recipes Grid */}
+        {data && !isLoading && (
+          <div className="mt-8 px-8 grid grid-cols-1 gap-8  md:grid-cols-2">
+            {data.results.map((recipe) => (
+              <RecipeCard
+                key={recipe.id}
+                title={recipe.title}
+                id={recipe.id}
+                readyInMinutes={recipe.readyInMinutes}
+                servings={recipe.servings}
+                image={recipe.image}
+              />
+            ))}
+          </div>
+        )}
 
-      {/* Pagination Section */}
-      {data && !isLoading && (
-        <div className="mt-8">
-          <div className="flex flex-col items-center gap-4">
-            <div className="text-sm text-gray-700">
-              page {currentPage} of {totalPages}
-              <span className="mx-2">•</span>
-              Total recipes: {totalRecipes}
+        {/* Pagination Section */}
+        {data && !isLoading && (
+          <div className="mt-8">
+            <div className="flex flex-col items-center gap-4">
+              <div className="text-sm text-gray-700">
+                page {currentPage} of {totalPages}
+                <span className="mx-2">•</span>
+                Total recipes: {totalRecipes}
+              </div>
+              <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPages={totalPages}
+              />
             </div>
-            <Pagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPages={totalPages}
-            />
           </div>
-        </div>
-      )}
+        )}
 
-      {/* No Results State */}
-      {data?.results.length === 0 && (
-        <div className="text-center py-12">
-          <div className="text-lg text-gray-600">
-            No recipes found with the selected filters.
+        {/* No Results State */}
+        {data?.results.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-lg text-gray-600">
+              No recipes found with the selected filters.
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </section>
   );
 };
 
