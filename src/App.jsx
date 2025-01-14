@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { appRoutes } from "./routes/routes";
+import { appRoutes, authRoutes } from "./routes/routes";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import PublicRoute from "./routes/PublicRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -30,6 +31,17 @@ function App() {
             />
             <Navbar />
             <Routes>
+              {/* Auth routes - only accessible when logged out */}
+              <Route element={<PublicRoute />}>
+                {authRoutes.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={<route.component />}
+                  />
+                ))}
+              </Route>
+
               {appRoutes.map((route) =>
                 route.isProtected ? (
                   <Route key={route.path} element={<ProtectedRoute />}>

@@ -44,6 +44,9 @@ export const appRoutes = [
     component: NotFound,
     isProtected: false,
   },
+];
+
+export const authRoutes = [
   {
     path: "/login",
     component: Login,
