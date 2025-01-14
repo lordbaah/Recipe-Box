@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import SearchComponent from "../components/SearchComponent";
 import { searchRecipes } from "../services/api";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import Pagination from "../components/Pagination";
 import RecipeCard from "../components/RecipeCard";
 import ErrorMessage from "../components/ErrorMessage";
@@ -24,7 +24,7 @@ const Search = () => {
     queryKey: ["recipe", searchTerm, offSet],
     queryFn: () => searchRecipes(searchTerm, offSet, recipesPerPage),
     staleTime: 10 * 60 * 1000, // 10 minutes for this specific query
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   const totalRecipes = data?.totalResults || 0;

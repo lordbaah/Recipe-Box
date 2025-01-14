@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
 import Pagination from "../components/Pagination";
@@ -44,7 +44,7 @@ const Recipes = () => {
         mealType
       ),
     staleTime: 10 * 60 * 1000, // 10 minutes for this specific query
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   // console.log(error);
