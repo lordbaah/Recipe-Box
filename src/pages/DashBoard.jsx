@@ -135,11 +135,11 @@ const Dashboard = () => {
           )}
         </div>
 
-                      <button
-                onClick={handleLogout}
-                className="bg-clr-pink text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-colors">
-                Log Out
-              </button>
+          <button
+          onClick={handleLogout}
+          className="bg-clr-pink text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-colors">
+          Log Out
+        </button>
 
 
         {/* Favorites Section */}
