@@ -13,15 +13,11 @@ const SignUp = () => {
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { signup, user } = useAuth();
+  const { signup } = useAuth();
   const navigate = useNavigate();
 
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
-
-  if (user) {
-    return <Navigate to="/dashboard" replace />; // Redirect if logged in
-  }
 
   const handleSignUp = async (e) => {
     e.preventDefault();
