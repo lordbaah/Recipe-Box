@@ -117,7 +117,6 @@ const Dashboard = () => {
           </div>
         )}
 
-        {/* User Info Section */}
         <div className="mb-8">
           {!loading && userData && (
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -135,14 +134,6 @@ const Dashboard = () => {
           )}
         </div>
 
-          <button
-          onClick={handleLogout}
-          className="bg-clr-pink text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-colors">
-          Log Out
-        </button>
-
-
-        {/* Favorites Section */}
         {!loading && !error && favorites && (
           <>
             <h2 className="text-2xl font-bold mb-4">Your Favorite Recipes</h2>

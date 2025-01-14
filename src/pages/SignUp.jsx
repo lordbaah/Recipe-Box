@@ -48,8 +48,6 @@ const SignUp = () => {
         toast.success("Account created successfully!");
         console.log("User registered successfully");
 
-        // Short delay to allow the success toast to be visible
-
         setTimeout(() => {
           navigate(from, { replace: true });
         }, 1500);
