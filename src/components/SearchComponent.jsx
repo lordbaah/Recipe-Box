@@ -19,7 +19,7 @@ const SearchComponent = ({ setCurrentPage }) => {
         className="bg-white flex px-1 py-1 rounded-full border border-clr-pink overflow-hidden w-full">
         <input
           type="text"
-          placeholder="Search recipe, diet, meal...."
+          placeholder="Search recipe, diet, meal example pizza, burger....."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full outline-none bg-white pl-4 text-sm"
